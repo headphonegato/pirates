@@ -81,3 +81,10 @@ class Drowned(Monster):
         #7 to 19 hp, bite attack, 65 to 85 speed (100 is "normal")
         super().__init__(name, random.randrange(7,20), attacks, 75 + random.randrange(-10,11))
         self.type_name = "Drowned Pirate"
+
+class Samurai(Monster):
+    def __init__(self, name):
+        attacks = {}
+        attacks["slash"] = ["slash",random.randrange (20,60), (10,15)]
+        super().__init__(name, random.range(10,20), attacks, 30 + random.randrange(-10 + 30))
+        self.type_name = "Samurai"

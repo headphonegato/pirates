@@ -85,6 +85,23 @@ class Flintlock(Item):
         self.skill = "guns"
         self.verb = "shoot"
         self.verb2 = "shoots"
+
+class Lightning_Attack():
+    """Basic attack object, with a name, description, chance of success, and damage range. Sufficient for specifying monster attacks."""
+    def __init__ (self, name, description, success, damage_range):
+        self.name = name
+        self.description = description
+        self.success = success
+        self.damage_range = damage_range
+        self.gunshot = False
+
+    def __eq__(self, other):
+        if not isinstance(other):
+            return False
+        if self.name == other.name and self.description == other.description and self.success == other.success and self.damage_range == other.damage_range:
+            return True
+        return False
+
 class Lightning_sword(Item):
     def __init__(self):
         super().__init__("lightning_sword", 1) #will change the 1 later 
@@ -100,6 +117,7 @@ class Lightning_sword(Item):
         if "swords" in owner.skills.keys():
             attacks.append(superclasses.CombatAction(f"{self.verb} with {self.name}", superclasses.Attack(self.name, self.verb2, owner.skills[self.skill], self.damage, False), self))
         #What does a lightning bolt do
+        attacks.append(superclasses.CombatAction(f"zap with {self.name}", Lightning_Attack("lightning","blasts",50,(60,70)), self))
         return attacks
 
     def pickTargets(self, action, attacker, allies, enemies):
@@ -115,7 +133,7 @@ class Flame_sword(Item):
         self.damage = (30,50)
         self.skill = "swords"
         self.verb = "slash"
-        self.verb = "flame_slash"
-        self.verb = "fireball"
+        #self.verb = "flame_slash"
+        #self.verb = "fireball"
     
 
