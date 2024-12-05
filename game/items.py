@@ -88,10 +88,34 @@ class Flintlock(Item):
 class Lightning_sword(Item):
     def __init__(self):
         super().__init__("lightning_sword", 1) #will change the 1 later 
-        self.damage =  (30,50)
+        self.damage =  (50,70)
         self.skill = "swords"
         self.verb = "slash"
-        self.verb = "slashes"
-        self.verb = "lightning_bolt"
-        self.verb = "electric_slash"
+        self.verb2 = "slashes"
+        #self.verb = "lightning_bolts"
+        #self.verb = "electric_slash"
+
+    def getAttacks(self, owner):
+        attacks = []
+        if "swords" in owner.skills.keys():
+            attacks.append(superclasses.CombatAction(f"{self.verb} with {self.name}", superclasses.Attack(self.name, self.verb2, owner.skills[self.skill], self.damage, False), self))
+        #What does a lightning bolt do
+        return attacks
+
+    def pickTargets(self, action, attacker, allies, enemies):
+        options = []
+        for t in enemies:
+            options.append(f"attack {t.name}")
+        choice = menu (options)
+        return [enemies[choice]]
+
+class Flame_sword(Item):
+    def __init__(self):
+        super().__init__("flame_sword")
+        self.damage = (30,50)
+        self.skill = "swords"
+        self.verb = "slash"
+        self.verb = "flame_slash"
+        self.verb = "fireball"
+    
 

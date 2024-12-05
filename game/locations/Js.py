@@ -25,6 +25,9 @@ class Js (location.Location):
         self.locations["color_guess"] = Color_guess(self)
 
         self.starting_location = self.locations["beach"]
+   
+    def enter (self, ship):
+        display.announce ("arrived at my island")
     
 class Beach_with_ship (location.SubLocation):
     def __init__ (self, m):
@@ -40,17 +43,18 @@ class Beach_with_ship (location.SubLocation):
 
     def process_verb (self, verb, cmd_list, nouns):
         if (verb == "south"):
-            display.announce ("You return to your ship and look like a fool .")
+            display.announce ("You return to your ship and guess why have you came back?.")
             self.main_location.end_visit()
         elif (verb == "north"):
             config.the_player.next_loc = self.main_location.locations["color_guess"]
         elif (verb == "east" or verb == "west"):
-            display.announce (f"You walk all the way around the island on the beach. and find a powerfull weapon {Lightning_sword} ")
+            display.announce (f"You walk all the way around the island on the beach. and find a treasure chest")
 
 class Color_guess(location.SubLocation):
     def __init__(self, m):
         super().__init__(m)
         self.name = "color_guess"
+        self.visitable = True
         self.event_chance = 10
         self.events.append(seagull.Seagull())
     
@@ -68,5 +72,5 @@ class Color_guess(location.SubLocation):
                 print(f"you have guessd the color correctly {color}")
             else:
                 print("Incorrect. Please guess agian")
-        if not guessed_number:
+        if guessed_number == max_attempts:
             print(f"you've reached the maximum attempts. The color was '{color}'. Goodbye :)")
