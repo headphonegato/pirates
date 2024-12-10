@@ -1,7 +1,9 @@
 import random
 import game.event as event
-import combat
-import display
+from game import event
+import game.combat as combat
+import game.display as display
+
 
 class SamuraiBoss(event.Event):
     def __init__(self):

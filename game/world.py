@@ -55,7 +55,7 @@ class World (context.Context):
         self.locs[self.startx][self.starty+1] = testland
 
         # Peaceful island directly to the right of the spawning location.
-        peacefulIsland = PeacefulIsland.PeacefulIsland(self.startx + 1, self.starty, self)
+        peacefulIsland = FightIsland.Fight_Island(self.startx + 1, self.starty, self)
         self.locs[self.startx - 1][self.starty] = peacefulIsland
 
         self.events = []
@@ -66,6 +66,8 @@ class World (context.Context):
         self.events.append (seagull.Seagull())
         self.events.append (sickness.Sickness())
         self.events.append (drowned_pirates.DrownedPirates())
+        self.events.append(samurais.Samurais())
+        self.events.append(samurai_boss.SamuraiBoss())
         self.nouns["world"] = self
 
     def get_day (self):

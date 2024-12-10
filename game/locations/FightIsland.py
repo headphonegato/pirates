@@ -17,7 +17,11 @@ class Fight_Island (location.Location):
         self.symbol = 'FI'
         self.visitable = True
         self.locations = {}
-        self.starting_location = self.locations["Shrine Temple"]
+        self.locations["ShrineTemple"] = Temple(self)
+        self.locations["Boss"] = Boss_Fight(self)
+        self.locations["key"] = puzzle_with_key (self)
+        self.locations["Treasure Chest"] = TreasureChest (self)        
+        self.starting_location = self.locations["ShrineTemple"]
 
     def enter (self, ship):
         display.announce ("You have arrived at the Fighting Island get ready to fight with your life")
@@ -25,12 +29,12 @@ class Fight_Island (location.Location):
 class Temple (location.SubLocation):
     def __init__ (self, m):
         super().__init__(m)
-        self.name = "Shrine Temple"
+        self.name = "ShrineTemple"
         self.verbs['north'] = self
         self.verbs['south'] = self 
         self.verbs['east'] = self
         self.verbs['west'] = self
-        self.event_chance = 0
+        self.event_chance = 30
         self.events.append(samurais.Samurais())
 
     
@@ -66,7 +70,7 @@ class Boss_Fight (location.SubLocation):
             display.announce("The Samurai Boss remains undefeated. Gather your strength and try again!")
         
 
-class puzzle_with_key (location.SubLocations):
+class puzzle_with_key (location.SubLocation):
     def __init__ (self,m):
         self.name = "key"
         self.symbol = "K"
@@ -124,8 +128,6 @@ class Flame_sword(item.Item):
         self.damage = (40,50)
         self.skill = "swords"
         self.verb = "slash"
-
-               
 
 class TreasureChest(location.SubLocation):
     def __init__(self, m):
