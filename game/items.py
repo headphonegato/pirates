@@ -130,10 +130,25 @@ class Lightning_sword(Item):
 class Flame_sword(Item):
     def __init__(self):
         super().__init__("flame_sword")
-        self.damage = (30,50)
+        self.damage = (40,50)
         self.skill = "swords"
         self.verb = "slash"
         #self.verb = "flame_slash"
         #self.verb = "fireball"
+       
+    def getAttacks(self, owner):
+        attacks = []
+        if "swords" in owner.skills.keys():
+            attacks.append(superclasses.CombatAction(f"{self.verb} with {self.name}", superclasses.Attack(self.name, self.verb2, owner.skills[self.skill], self.damage, False), self))
+        attacks.append(superclasses.CombatAction(f"Flame {self.name}", Flame_sword("Flame","slash",40,(60,80)), self))
+        return attacks
+
+    def pickTargets(self, action, attacker, allies, enemies):
+        options = []
+        for t in enemies:
+            options.append(f"attack {t.name}")
+        choice = menu (options)
+        return [enemies[choice]]
+
     
 

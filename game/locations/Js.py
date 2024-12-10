@@ -2,16 +2,14 @@ from game import location
 import game.config as config
 import game.display as display
 from game.events import *
-import game.items as items
 import game.combat as combat
 import game.event as event
 from game import event
 from game.combat import Monster
 import game.items as items
+import game.items as item
 import random
 from game.events import seagull
-from game.items import Lightning_sword
-
 
 class Js (location.Location):
 
@@ -39,7 +37,7 @@ class Beach_with_ship (location.SubLocation):
         self.verbs['west'] = self
     
     def enter (self, ship):
-        display.announce ("arrived at an island that is very strange and you look at the sky and see random gocolors for some reason", pause=False)
+        display.announce ("arrived at an island that is very strange and you look at the sky and see random colors for some reason", pause=False)
 
     def process_verb (self, verb, cmd_list, nouns):
         if (verb == "south"):
@@ -47,8 +45,42 @@ class Beach_with_ship (location.SubLocation):
             self.main_location.end_visit()
         elif (verb == "north"):
             config.the_player.next_loc = self.main_location.locations["color_guess"]
-        elif (verb == "east" or verb == "west"):
+        elif (verb == "east" ):
             display.announce (f"You walk all the way around the island on the beach. and find a treasure chest")
+        elif (verb == "west"):
+            config.the_player.next_loc = self.main_location.locations["treasure"]
+            display.announce ("You find a treasure with a item.")
+
+class treasure (location.SubLocation):
+    def __init__(self, m):
+        super().__init__(m)
+        self.name = "treasure"
+        self.visitable = True
+        self.verbs['north'] = self
+        self.verbs['south'] = self
+        self.verbs['east'] = self
+        self.verbs['west'] = self
+        self.verbs['take'] = self
+        self.item_in_chest = items.Lightning_sword()
+        display.announce("You see the treasure infront of you")
+    
+    def process_verb (self, verb, cmd_list, nouns):
+       if (verb == "south" or verb == "north" or verb == "east" or verb == "west"):
+            config.the_player.next_loc = self.main_location.locations["beach"]
+       if verb == "take":
+        if len(cmd_list) > 1 and (cmd_list[1] == "lightning_sword" or cmd_list[1] == "all"):
+            item = self.item_in_chest
+            display.announce(f"You open the chest and take the {item.name}.")
+            config.the_player.add_to_inventory([item])
+            self.item_in_chest = items.lightning_sword()
+           
+class Lightning_sword(item.Item):
+    def __init__(self):
+        super().__init__("lightning_sword", 1) #will change the 1 later 
+        self.damage =  (50,70)
+        self.skill = "swords"
+        self.verb = "slash"
+        self.verb2 = "slashes"
 
 class Color_guess(location.SubLocation):
     def __init__(self, m):

@@ -88,3 +88,9 @@ class Samurai(Monster):
         attacks["slash"] = ["slash",random.randrange (20,60), (10,15)]
         super().__init__(name, random.range(10,20), attacks, 30 + random.randrange(-10 + 30))
         self.type_name = "Samurai"
+class SamuraiBoss(Monster):
+    def __init__(self, name):
+        attacks = {}
+        attacks["slash"] = ["slash",random.randrange (20,60), (10,15)]
+        super().__init__(name, random.range(60,80), attacks, 60 + random.randrange(-10 + 30))
+        self.type_name = "Samurai"
