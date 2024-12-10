@@ -5,6 +5,8 @@ import game.event as event
 from game.events import samurais
 import random
 from game.events import samurai_boss
+import game.items as items
+import game.items as item
 
 
 class Fight_Island (location.Location):
@@ -116,7 +118,7 @@ class puzzle_with_key (location.SubLocations):
             return f"You lose! {Ai_guessing} beats {player_choice}.", False 
 
 
-class Flame_sword(Item):
+class Flame_sword(item.Item):
     def __init__(self):
         super().__init__("flame_sword")
         self.damage = (40,50)
