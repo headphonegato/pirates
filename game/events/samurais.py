@@ -13,9 +13,9 @@ class Samurais(event.Event):
         result["message"] = "The Samurais have been defeated!"
         samurais = []
         min_count = 2
-        max_count = 4
+        max_count = 5
     
-        if random.randrange() < 0.25:  
+        if random.randrange(0.25):  
                 max_count = 1
                 leader = combat.Samurai("Samurai Leader")
                 leader.speed *= 1.3  # Buff speed
@@ -23,13 +23,14 @@ class Samurais(event.Event):
                 samurais.append(leader)
             
         n_appearing = random.randrange(min_count, max_count)
-        for i in range(1, n_appearing + 1):
-            samurais.append(combat.Samurai(f"Samurai {i}"))
-
-            display.announce("You are attacked by a group of Samurais!")
-            combat.Combat(samurais).combat()
-            result["newevents"] = [self]
-            return result
+        n = 1
+        while n <= n_appearing:
+            samurais.append(combat.Samurai("samurai "+str(n)))
+            n += 1
+        display.announce("You are attacked by a group of Samurais!")
+        combat.Combat(samurais).combat()
+        result["newevents"] = [self]
+        return result
         
 
    

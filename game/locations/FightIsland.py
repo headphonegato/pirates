@@ -14,7 +14,7 @@ class Fight_Island (location.Location):
     def __init__ (self, x, y, w):
         super().__init__(x, y, w)
         self.name = "FightIsland"
-        self.symbol = 'FI'
+        self.symbol = 'F'
         self.visitable = True
         self.locations = {}
         self.locations["ShrineTemple"] = Temple(self)
@@ -23,7 +23,7 @@ class Fight_Island (location.Location):
         self.locations["Treasure Chest"] = TreasureChest (self)        
         self.starting_location = self.locations["ShrineTemple"]
 
-    def enter (self, ship):
+    def enter (self,ship):
         display.announce ("You have arrived at the Fighting Island get ready to fight with your life")
     
 class Temple (location.SubLocation):

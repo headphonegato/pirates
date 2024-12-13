@@ -16,7 +16,7 @@ class Js (location.Location):
     def __init__ (self, x, y, w):
         super().__init__(x, y, w)
         self.name = "Js"
-        self.symbol = 'JS'
+        self.symbol = 'J'
         self.visitable = True
         self.locations = {}
         self.locations["beach"] = Beach_with_ship(self)
@@ -36,7 +36,7 @@ class Beach_with_ship (location.SubLocation):
         self.verbs['east'] = self
         self.verbs['west'] = self
     
-    def enter (self, ship):
+    def enter (self):
         display.announce ("arrived at an island that is very strange and you look at the sky and see random colors for some reason", pause=False)
 
     def process_verb (self, verb, cmd_list, nouns):
