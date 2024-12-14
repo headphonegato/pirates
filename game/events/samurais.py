@@ -15,7 +15,7 @@ class Samurais(event.Event):
         min_count = 2
         max_count = 5
     
-        if random.randrange(0.25):  
+        if random.randrange(2):
                 max_count = 1
                 leader = combat.Samurai("Samurai Leader")
                 leader.speed *= 1.3  # Buff speed
